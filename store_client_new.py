@@ -5,32 +5,41 @@ import json
 class WebSocketClient():
 
     def __init__(self):
-        pass
+        self.barcode_list = []
+
+    def json_massage(self,message):
+        return json.dumps({"client" : message,"request" : 1})
+
+    
+    def get_barcode_list():
+        '''
+         Return barcode valu in list type
+        '''
+        return self.barcode_list
 
     async def connect(self):
         '''
-            Connecting to webSocket server
+            Connecting to websocket server
             websockets.client.connect returns a WebSocketClientProtocol, which is used to send and receive messages
         '''
         SERVER_IP = "192.168.1.50"
         SERVER_PORT = "5555"
         SERVER_URL = "ws://" + SERVER_IP + ":" + SERVER_PORT
-        self.barcode_list = []
+        
 
         self.connection = await websockets.client.connect(SERVER_URL)
         if self.connection.open:
             print('Connection stablished. Client correcly connected')
+            
             # Send greeting
             message = self.json_massage("start client")
             await self.send_message(message)
             return self.connection
 
-    def json_massage(self,message):
-        return json.dumps({"client" : message,"request" : 1})
-    
+
     async def send_message(self, message):
         '''
-            Sending message to webSocket server
+            Sending message to websocket server
         '''
         await self.connection.send(message)
 
@@ -40,28 +49,12 @@ class WebSocketClient():
         '''
         while True:
             try:
-                #  # data = json.load(message)
-                # message = await connection.recv()
-               
-                
-                # print('Received message from server: ' + type(message))
-
-                # # if message["barcode"] != "" :
-                # #     print("ok")
-                # # self.barcode_list.append(message["barcode"])
-            
-                # # print(self.barcode_list)
-
                 async for message in connection:
                     data = json.loads(message)
-                    print(data)
+                    # print(data)
                     if(data['barcode'] != "" ):
                        self.barcode_list.append(data["barcode"])
-                       print(self.barcode_list)
-                    #     # await websocket.send(self.json_massage(self.barcode_list))
-                    #     # self.barcode_list = []
-                    #     await websocket.send(self.json_massage(self.barcode) )
-                    #     self.barcode = ""
+                    #    print(self.barcode_list)
                         
                         
                 
