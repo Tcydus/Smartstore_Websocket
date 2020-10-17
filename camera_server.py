@@ -9,7 +9,7 @@ logging.basicConfig()
 class Server(object):
 
     def __init__(self, host, port):
-        self.barcode = []
+        self.barcode = ""
         self.host, self.port = host, port
         self.loop = asyncio.get_event_loop()
 
@@ -37,14 +37,18 @@ class Server(object):
             async for message in websocket:
                 data = json.loads(message)
                 if(data['request'] == 1 ):
-                    await websocket.send(self.json_massage(self.barcode))
+                    # await websocket.send(self.json_massage(self.barcode_list))
+                    # self.barcode_list = []
+                    await websocket.send(self.json_massage(self.barcode) )
+                    self.barcode = ""
+                    
                 else:
-                    self.barcode.append(data["barcode"])
-                    print(data['barcode'])  
+                    self.barcode = data["barcode"]
+                    print(self.barcode)  
                 
                 
                 
-                # self.barcode = data["barcode"]
+                # self.barcode_list = data["barcode"]
              
         finally:
             print("Finally : ",websocket)
