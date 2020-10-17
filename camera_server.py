@@ -32,18 +32,20 @@ class Server(object):
 
         try:
             async for message in websocket:
-                # data = json.loads(message)
+                data = json.loads(message)
+                if(data['request'] == 1 ):
+                    await websocket.send(message)
+                else:
+                    print(data['barcode'])  
+                
+                
                 # self.barcode = data["barcode"]
-                # websocket.send()
+             
         finally:
             print("Finally : ",websocket)
             # await unregister(websocket)
 
-    
-     
 
-
-
-if __name__ == '__main__':
-    # server = Server(host='localhost', port=5555)
+if __name__ == '__main__':    
+    # server = Server(host='localhost', port=5555)    
     server = Server(host='192.168.1.50', port=5555)

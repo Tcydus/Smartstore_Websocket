@@ -31,7 +31,7 @@ class StoreClient:
     
     async def __async__get_barcode(self):
         async with self.ws as echo:
-            await echo.send(json.dumps({'ticks_history': 'R_50', 'end': 'latest', 'count': 1}))
+            # await echo.send(json.dumps({'ticks_history': 'R_50', 'end': 'latest', 'count': 1}))
             return await echo.receive()
 
     
