@@ -22,6 +22,9 @@ class Server(object):
         async with websockets.serve(self.ws_handler, self.host, self.port):
             await self.stop
 
+    def json_massage(self,message):
+        return json.dumps({"barcode" : message,"request" : 0})
+
     async def ws_handler(self, websocket, path):
         # msg = await websocket.recv()
         # print(f'Received: {msg}', end = "\t")
@@ -34,9 +37,11 @@ class Server(object):
             async for message in websocket:
                 data = json.loads(message)
                 if(data['request'] == 1 ):
-                    await websocket.send(message)
+                    await websocket.send(self.json_massage(self.barcode))
                 else:
+                    self.barcode.append(data["barcode"])
                     print(data['barcode'])  
+                
                 
                 
                 # self.barcode = data["barcode"]

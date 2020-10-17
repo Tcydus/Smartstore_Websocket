@@ -9,9 +9,11 @@ class WebSocketClient():
 
     async def connect(self):
         '''
+        
             Connecting to webSocket server
 
             websockets.client.connect returns a WebSocketClientProtocol, which is used to send and receive messages
+
         '''
         SERVER_IP = "192.168.1.50"
         SERVER_PORT = "5555"
