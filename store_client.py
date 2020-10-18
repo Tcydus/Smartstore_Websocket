@@ -25,7 +25,9 @@ class WebSocketClient():
             Connecting to websocket server
             websockets.client.connect returns a WebSocketClientProtocol, which is used to send and receive messages
         '''
-        SERVER_IP = "192.168.1.50"
+
+        # SERVER_IP = "192.168.1.50"
+        SERVER_IP = "localhost"
         SERVER_PORT = "5555"
         SERVER_URL = "ws://" + SERVER_IP + ":" + SERVER_PORT
         

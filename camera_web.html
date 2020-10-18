@@ -90,21 +90,23 @@
               if (result) {
                 console.log(result)
                 document.getElementById('result').textContent = result.text
-                // var server_uri = "ws://localhost:5555";
-                // var ws = new WebSocket(server_uri);
+                var server_uri = "ws://localhost:5555";
+                var ws = new WebSocket(server_uri);
                 
-                var server_ip = "192.168.1.50";
-                var server_port = "5555";
-                var server_url = "ws://" + server_ip + ":" + server_port;
-                var ws = new WebSocket(server_url);
+                // var server_ip = "192.168.1.50";
+                // var server_port = "5555";
+                // var server_url = "ws://" + server_ip + ":" + server_port;
+                // var ws = new WebSocket(server_url);
 
                 ws.onopen = function () {
                   var dict = {
-                    "barcode" : result.text
+                    "barcode" : result.text,
+                    "request" : 0
                   };
                   var jsonstr = JSON.stringify(dict)
                   ws.send(jsonstr);
-                
+                  // ws.send(result.text);
+                  // alert("Message is sent...");
                   tempAlert("barcode is send..", 500);
                 };
 

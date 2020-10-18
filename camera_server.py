@@ -45,5 +45,5 @@ class Server(object):
 
 
 if __name__ == '__main__':    
-    # server = Server(host='localhost', port=5555)    
-    server = Server(host='192.168.1.50', port=5555)
+    server = Server(host='localhost', port=5555)    
+    # server = Server(host='192.168.1.50', port=5555)
