@@ -1,5 +1,5 @@
 #api testing
-from store_client_new import WebSocketClient
+from store_client import WebSocketClient
 import asyncio
 
 async def main(my_client):
