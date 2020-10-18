@@ -1,5 +1,4 @@
 import asyncio
-# import signal
 import json
 import logging
 import websockets
@@ -14,7 +13,6 @@ class Server(object):
         self.loop = asyncio.get_event_loop()
 
         self.stop = self.loop.create_future()
-        # self.loop.add_signal_handler(signal.SIGINT, self.stop.set_result, None)
 
         self.loop.run_until_complete(self.server())
 
@@ -26,19 +24,11 @@ class Server(object):
         return json.dumps({"barcode" : message,"request" : 0})
 
     async def ws_handler(self, websocket, path):
-        # msg = await websocket.recv()
-        # print(f'Received: {msg}', end = "\t")
-
-        # msg = "Accept"
-        # await websocket.send(msg)
-        # print(f'Sending: {msg} ')
 
         try:
             async for message in websocket:
                 data = json.loads(message)
                 if(data['request'] == 1 ):
-                    # await websocket.send(self.json_massage(self.barcode_list))
-                    # self.barcode_list = []
                     await websocket.send(self.json_massage(self.barcode) )
                     self.barcode = ""
                     
@@ -47,12 +37,11 @@ class Server(object):
                     print(self.barcode)  
                 
                 
-                
-                # self.barcode_list = data["barcode"]
-             
+        except websockets.exceptions.ConnectionClosed:
+            print('Client connection with server closed')
+                     
         finally:
             print("Finally : ",websocket)
-            # await unregister(websocket)
 
 
 if __name__ == '__main__':    

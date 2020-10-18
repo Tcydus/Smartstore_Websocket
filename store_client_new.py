@@ -11,7 +11,7 @@ class WebSocketClient():
         return json.dumps({"client" : message,"request" : 1})
 
     
-    def get_barcode_list():
+    async def get_barcode_list(self):
         '''
          Return barcode valu in list type
         '''
@@ -51,16 +51,13 @@ class WebSocketClient():
             try:
                 async for message in connection:
                     data = json.loads(message)
-                    # print(data)
                     if(data['barcode'] != "" ):
                        self.barcode_list.append(data["barcode"])
-                    #    print(self.barcode_list)
                         
-                        
-                
             except websockets.exceptions.ConnectionClosed:
                 print('Connection with server closed')
                 break
+            
 
     async def heartbeat(self, connection):
         '''
