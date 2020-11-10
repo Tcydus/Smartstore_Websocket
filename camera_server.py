@@ -26,15 +26,18 @@ class Server(object):
     async def ws_handler(self, websocket, path):
 
         try:
-            async for message in websocket:
-                data = json.loads(message)
-                if(data['request'] == 1 ):
-                    await websocket.send(self.json_massage(self.barcode) )
-                    self.barcode = ""
+            await websocket.send("555")
+            await asyncio.sleep(2)
+            # async for message in websocket:
+            #     # data = json.loads(message)
+            #     # if(data['request'] == 1 ):
+            #     #     await websocket.send(self.json_massage(self.barcode) )
+            #     #     self.barcode = ""
                     
-                else:
-                    self.barcode = data["barcode"]
-                    print(self.barcode)  
+            #     # else:
+            #     #     self.barcode = data["barcode"]
+            #     #     print(self.barcode)  
+            #     print(message)
                 
                 
         except websockets.exceptions.ConnectionClosed:
