@@ -5,11 +5,11 @@ import json
 async def client_func():
     uri = "ws://localhost:1302"
     async with websockets.connect(uri) as websocket:
-        name ="8850006901656"
+        barcode ="8850006901656"
 
-        await websocket.send(json.dumps({"barcode" : name,"request" : 0}))
+        await websocket.send(json.dumps({"barcode" : barcode,"request" : 0}))
         
-        print(f"sending   >>> {name}")
+        print(f"sending   >>> {barcode}")
 
         
     
